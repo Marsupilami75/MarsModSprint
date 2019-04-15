@@ -1,9 +1,9 @@
-﻿using BepInEx;
+using BepInEx;
 using RoR2;
 
 namespace MarsModSprint
 {
-    [BepInPlugin("com.marsupilami.marsmodsprint", "MarsModSprint", "1.0.2")]
+    [BepInPlugin("com.marsupilami.marsmodsprint", "MarsModSprint", "1.0.4")]
 
     public class MarsModSprint : BaseUnityPlugin
     {
@@ -18,9 +18,7 @@ namespace MarsModSprint
         {
             if (!Run.instance) { return; }
 
-            var player = NetworkUser.readOnlyLocalPlayersList[0];
-
-            if (player.inputPlayer.GetButtonUp("Sprint"))
+            if (NetworkUser.readOnlyLocalPlayersList[0].inputPlayer.GetButtonUp("Sprint"))
             {
                 mmIsSprinting = !mmIsSprinting;
             }
@@ -30,12 +28,9 @@ namespace MarsModSprint
         {
             if (!Run.instance) { return; }
 
-            var player = NetworkUser.readOnlyLocalPlayersList[0];
-            var bodyInputs = PlayerCharacterMasterController.instances[0].master.GetBodyObject().GetComponent<InputBankTest>();
-
             if (mmIsSprinting)
             {
-                bodyInputs.sprint.PushState(!player.inputPlayer.GetButton("Sprint"));
+                PlayerCharacterMasterController.instances[0].master.GetBodyObject().GetComponent<InputBankTest>().sprint.PushState(!NetworkUser.readOnlyLocalPlayersList[0].inputPlayer.GetButton("Sprint"));
             }
         }
     }
