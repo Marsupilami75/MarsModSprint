@@ -3,7 +3,7 @@ using RoR2;
 
 namespace MarsModSprint
 {
-    [BepInPlugin("com.marsupilami.marsmodsprint", "MarsModSprint", "1.0.4")]
+    [BepInPlugin("com.marsupilami.marsmodsprint", "MarsModSprint", "1.0.5")]
 
     public class MarsModSprint : BaseUnityPlugin
     {
@@ -16,7 +16,7 @@ namespace MarsModSprint
 
         public void Update()
         {
-            if (!Run.instance) { return; }
+            if (!Run.instance) return;
 
             if (NetworkUser.readOnlyLocalPlayersList[0].inputPlayer.GetButtonUp("Sprint"))
             {
@@ -26,11 +26,11 @@ namespace MarsModSprint
 
         public void FixedUpdate()
         {
-            if (!Run.instance) { return; }
+            if (!Run.instance) return;
 
-            if (mmIsSprinting)
+            foreach (var playerCharacterMasterController in PlayerCharacterMasterController.instances)
             {
-                PlayerCharacterMasterController.instances[0].master.GetBodyObject().GetComponent<InputBankTest>().sprint.PushState(!NetworkUser.readOnlyLocalPlayersList[0].inputPlayer.GetButton("Sprint"));
+                playerCharacterMasterController.master.GetBodyObject().GetComponent<InputBankTest>().sprint.PushState(mmIsSprinting);
             }
         }
     }
