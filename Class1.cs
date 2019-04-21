@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MarsModSprint
 {
-    [BepInPlugin("com.marsupilami.marsmodsprint", "MarsModSprint", "1.0.7")]
+    [BepInPlugin("com.marsupilami.marsmodsprint", "MarsModSprint", "1.0.8")]
 
     public class MarsModSprint : BaseUnityPlugin
     {
@@ -55,7 +55,11 @@ namespace MarsModSprint
                 if (mmWrapAutoActivate.Value == true)
                 {
                     mmActivated = true;
-                    Chat.AddMessage("<color=red>MM Sprint: Activated</color>");
+                    Chat.AddMessage("<color=blue>MM Sprint: </color><color=red>Activated </color><color=white>Press <color=green>Alt</color><color=white>+</color><color=green>Sprint</color> to turn Off</color>");
+                }
+                else
+                {
+                    Chat.AddMessage("<color=blue>MM Sprint: </color><color=red>Deactivated </color><color=white>Press <color=green>Alt</color><color=white>+</color><color=green>Sprint</color> to turn On</color>");
                 }
             }
 
@@ -82,16 +86,16 @@ namespace MarsModSprint
                 }
             }
 
-            if (Input.GetKey(KeyCode.LeftAlt) && NetworkUser.readOnlyLocalPlayersList[0].inputPlayer.GetButtonUp("Sprint"))
+            if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && NetworkUser.readOnlyLocalPlayersList[0].inputPlayer.GetButtonUp("Sprint"))
             {
                 mmActivated = !mmActivated;
                 if (mmActivated)
                 {
-                    Chat.AddMessage("<color=red>MM Sprint: Activated</color>");
+                    Chat.AddMessage("<color=blue>MM Sprint: </color><color=red>Activated </color><color=white>Press <color=green>Alt</color><color=white>+</color><color=green>Sprint</color> to turn Off</color>");
                 }
                 else
                 {
-                    Chat.AddMessage("<color=red>MM Sprint: Deactivated</color>");
+                    Chat.AddMessage("<color=blue>MM Sprint: </color><color=red>Deactivated </color><color=white>Press <color=green>Alt</color><color=white>+</color><color=green>Sprint</color> to turn On</color>");
                 }
             }
         }
